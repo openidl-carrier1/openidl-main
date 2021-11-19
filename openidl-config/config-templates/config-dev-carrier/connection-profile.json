@@ -36,7 +36,7 @@
                 "grpc.keepalive_timeout_ms": 180000,
                 "grpc-wait-for-ready-timeout": 30000,
                 "ssl-target-name-override": "peer0.${CARRIER_ORGNAME}-net.${CARRIER_ORGNAME}.${ENV}.${SUBDOMAIN}.${DOMAIN}.com",
-                "hostnameOverride": "peer0.${CARRIER_ORGNAME}-net.${CARRIER_ORGNAME}.${ENV}.${SUBDMOAIN}.${DOMAIN}.com"
+                "hostnameOverride": "peer0.${CARRIER_ORGNAME}-net.${CARRIER_ORGNAME}.${ENV}.${SUBDOMAIN}.${DOMAIN}.com"
             }
         }
     },
