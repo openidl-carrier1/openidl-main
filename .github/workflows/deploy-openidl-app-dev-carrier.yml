@@ -31,7 +31,7 @@ defaults:
 
 jobs:
   deploy-openidl-app:
-    environment: dev-carrier
+    environment: ${{ github.event.inputs.env }}-${{ github.event.inputs.org_name }}
 
     name: Deploy openIDL application on dev-carrier
     runs-on: ubuntu-latest
