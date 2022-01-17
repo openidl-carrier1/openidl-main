@@ -3,6 +3,15 @@
   shell: |
     export AWS_PROFILE=cicd-role; aws eks update-kubeconfig --region {{ aws_region }} --name {{ app_cluster_name }}
 
+- name: Delete deploy-secrets pod
+  community.kubernetes.k8s:
+    name: deploy-secrets
+    namespace: openidl
+    api_version: v1
+    kind: Pod
+    state: absent
+    wait: yes
+
 - name: Create a openidl k8s namespace
   community.kubernetes.k8s:
     name: openidl
@@ -28,7 +37,7 @@
     kubectl cp /tmp/openidl/openidl-test-network/vault/ openidl/deploy-secrets:/
     kubectl exec deploy-secrets -n openidl -- sh -c "chmod +x vault/*.sh"
     kubectl exec deploy-secrets -n openidl -- sh -c \
-              "mkdir openidl-k8s/charts/openidl-secrets/config-{{ env }}-{{ org_name }}"
+              "mkdir -p openidl-k8s/charts/openidl-secrets/config-{{ env }}-{{ org_name }}"
     kubectl exec deploy-secrets -n openidl -- sh -c "./vault/deploy-utilities.sh \
               -a {{ aws_access_key }} -s {{ aws_secret_key }} \
               -r {{ aws_region }} -o {{ aws_iam_role }}"
@@ -53,10 +62,15 @@
   register: deploy_secrets
   when: secrets_retrieved.rc == 0
 
-- name: Dispose the pod
-  shell: |
-    kubectl delete pod deploy-secrets -n openidl
-  when: pod_ready.rc == 0
+- name: Delete deploy-secrets pod
+  community.kubernetes.k8s:
+    name: deploy-secrets
+    namespace: openidl
+    api_version: v1
+    kind: Pod
+    state: absent
+
+    wait: yes
 
 - name: Dispose temporary git repository content
   file:
