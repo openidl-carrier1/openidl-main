@@ -1,5 +1,0 @@
-[ansible_provisioners:children]
-local
-
-[local]
-172.32.2.241

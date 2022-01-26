@@ -29,3 +29,7 @@ openidl-config/analytics-dev-config-secrets.json
 ca.pem
 openidl-config/carrier-dev-config-secrets.json
 openidl-config/carrier-dev-config-secrets.json.hig
+openidl-config/*
+openidl-k8s/*
+awx-automation/*
+jenkins-jobs/* 
